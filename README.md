@@ -25,28 +25,31 @@ This setup allows you to remotely wake up a Windows computer using WoL packets s
 ### 2. Configure Scripts
 
 - Modify the variables in `vars_wol.py` and `vars.py` according to your network configuration and requirements.
-- Customize the backup and update tasks in `backup_and_update.ps1`, `backup.py`, and `update-check.ps1` as needed. (majority of configs in the vars files.)
+- Customize the backup and update tasks in `backup_and_update.ps1`, `backup.py`, and `update-check.ps1` as needed.
 
 ### 3. Schedule Tasks
 
 #### Raspberry Pi (Remote Device)
 
 - Use `crontab -e` to schedule the execution of `wol.py` at the desired time. For example:
-25 23 * * * python3 /path/to/wol.py
+  - 25 23 * * * python3 /path/to/wol.p
 
 #### Windows Computer
 
-- Use Windows Task Scheduler to schedule the execution of `backup_and_update.ps1` and `backup.py` at the desired times.
+- Use Windows Task Scheduler to schedule the execution of `backup_and_update.ps1` at the desired times.
 
 ## Usage
 
 1. At the scheduled time, `wol.py` will run on the Raspberry Pi, sending a WoL packet to the Windows computer.
-2. Upon waking up, the Windows computer will execute `backup_and_update.ps1`, performing backup and update tasks.
-3. Additionally, `backup.py` will be executed to perform a backup of modified files and directories since a specified time.
+2. Upon waking up, the Windows computer will execute `backup_and_update.ps1` at the set time.
+3. When the aforementioned .ps1 script executes, it will start the `backup.py` script. After that has finished, it will execute the `update-check.ps1` script.
+ - `backup.py` will perform a backup of modified files and directories since a specified time, from a specified directory to another directory using variables.
+ - `backup_and_update.ps1` will check if `chocolatey` is installed, prompt to install if not present, and proceed to update programs on the Windows device. After which it will prompt to shutdown, if unanswered within 5 minutes (variable), it will auto shutdown.
 
 ## Customization
 
 - Modify variables in `vars_wol.py` and `vars.py` to adapt the scripts to your specific network and requirements.
-- Customize backup and update tasks in `backup_and_update.ps1` and `backup.py` as needed.
+- Customize backup and update tasks in `wol.py`, `backup_and_update.ps1`, and `backup.py` as needed.
 
 Feel free to explore and customize the provided scripts according to your needs!
+Thinking of incorporating such into an `ansible`  
