@@ -8,7 +8,7 @@ This setup allows you to remotely wake up a Windows computer using WoL packets s
 
 ## Files
 
-- [wol.py](wol.py): Python script to send Wake-on-LAN (WoL) packets and manage device wake-up.
+- [wol.py](wol/wol.py): Python script to send Wake-on-LAN (WoL) packets and manage device wake-up.
 - [vars_wol.py](vars_wol.py): Python script containing variables used by the Wake-on-LAN (WoL) script.
 - [backup_and_update.ps1](backup_and_update.ps1): PowerShell script to perform backup and update tasks on the Windows computer.
 - [backup.py](backup.py): Python script for backing up modified files and directories since a specified time.
