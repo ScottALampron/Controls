@@ -1,0 +1,44 @@
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore system and IDE files
+.DS_Store
+.idea/
+.vscode/
+
+# Ignore backup files
+*.bak
+
+# Ignore compiled Python files
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore environment-specific files
+.env
+venv/
+env/
+
+# Ignore log files
+*.log
+
+# Ignore backup and temporary files
+*.backup
+*.tmp
+*.temp
+*~
+
+# Ignore compiled binaries (for compiled languages)
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore package files
+*.egg-info/
+*.egg
+
+# Ignore cache and temporary directories
+.cache/
+.temp/
