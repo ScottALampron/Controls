@@ -42,3 +42,6 @@ env/
 # Ignore cache and temporary directories
 .cache/
 .temp/
+
+#  Ignore  test  file
+output*
