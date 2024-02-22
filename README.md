@@ -9,10 +9,12 @@ This setup allows you to remotely wake up a Windows computer using WoL packets s
 ## Files
 
 - [wol.py](wol/wol.py): Python script to send Wake-on-LAN (WoL) packets and manage device wake-up.
-- [vars_wol.py](vars_wol.py): Python script containing variables used by the Wake-on-LAN (WoL) script.
-- [backup_and_update.ps1](backup_and_update.ps1): PowerShell script to perform backup and update tasks on the Windows computer.
-- [backup.py](backup.py): Python script for backing up modified files and directories since a specified time.
-- [vars.py](vars.py): Python script containing variables used by the backup and update scripts.
+- [vars_wol.py](wol/vars_wol.py): Python script containing variables used by the Wake-on-LAN (WoL) script.
+- [backup_and_update.ps1](powershell/backup_and_update.ps1): PowerShell script to perform backup and update tasks on the Windows computer.
+- [backup.py](python/backup.py): Python script for backing up modified files and directories since a specified time.
+- [vars.py](vars/vars.py): Python script containing variables used by the backup and update scripts.
+- [update-check.ps1](powershell/update-check.ps1): PowerShell script that checks for updates and handles system shutdown based on user input.
+
 
 ## Setup
 
@@ -24,7 +26,7 @@ This setup allows you to remotely wake up a Windows computer using WoL packets s
 ### 2. Configure Scripts
 
 - Modify the variables in `vars_wol.py` and `vars.py` according to your network configuration and requirements.
-- Customize the backup and update tasks in `backup_and_update.ps1` as needed.
+- Customize the backup and update tasks in `backup_and_update.ps1`, `backup.py`, and `update-check.ps1` as needed. (majority of configs in the vars files.)
 
 ### 3. Schedule Tasks
 
