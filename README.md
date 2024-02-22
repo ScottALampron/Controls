@@ -52,4 +52,5 @@ This setup allows you to remotely wake up a Windows computer using WoL packets s
 - Customize backup and update tasks in `wol.py`, `backup_and_update.ps1`, and `backup.py` as needed.
 
 Feel free to explore and customize the provided scripts according to your needs!
-Thinking of incorporating such into an `ansible`  
+
+Thinking of incorporating such into an `ansible` playbook.
