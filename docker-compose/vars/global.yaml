@@ -1,0 +1,150 @@
+environment_variables:
+  # Global
+  - PUID: 1000
+  - PGID: 1000
+  - TZ: Etc/UTC
+  # Wire Guard
+  - WG_SERVERURL: "wireguard.domain.com"
+  - WG_SERVERPORT: 51820
+  - WG_PEERS: 1 
+  - WG_PEERDNS: auto 
+  - WG_INTERNAL_SUBNET: "10.13.13.0"
+  - WG_ALLOWEDIPS: "0.0.0.0/0"
+  - WG_PERSISTENTKEEPALIVE_PEERS: ""
+  - WG_LOG_CONFS: true
+  # Code Server
+  - CS_PASSWORD: "xyz_directory" # update disss
+  # Traefik
+  - TFK_HTTP_PORT: 80
+  - TFK_HTTPS_PORT: 443
+  - TFK_API_HOST: "traefik.example.com"
+  - TFK_BASIC_AUTH: "admin:$apr1$cDUnfHR3$ReZYfIRfLgP9bIsReIcxm/"
+  - ACME_EMAIL: "admin@example.com"
+  - ACME_STORAGE: "/letsencrypt/acme.json"
+
+cap_add:
+  # Wire Guard
+  - WG_CAPABILITIES: "NET_ADMIN, SYS_MODULE" 
+
+volumes:
+  # Global
+  - GLOBAL_VOLUME: "./data/config:/config"
+  # LIB/MODULES
+  - LIB_VOLUME: "/lib/modules:/lib/modules"
+  # Code Server
+  - CS_Volume: "./config/workspace:/config/workspace"
+  # Let's Encrypt
+  - LETS_ENCRYPT_VOLUME: "/letsencrypt"
+  # Docker Socket
+  - DOCKER_SOCKET_VOLUME: "/var/run/docker.sock:/var/run/docker.sock"
+
+ports:
+  # Home assistant
+  - HA_HTTP_PORT: "8123:8123"
+  - HA_BASE_PORT: "8123"
+  # Wire Guard
+  - WG_HTTP_PORT: "51820:51820/udp"
+  - WG_BASE_PORT: "51820"
+  # Code Server
+  - CS_HTTPS_PORT: "8443:8443"
+  - CS_BASE_PORT: "8443"
+  # Traefik
+  - TRAEFIK_HTTP_PORT: "${TFK_HTTP_PORT}:80"
+  - TRAEFIK_HTTPS_PORT: "${TFK_HTTPS_PORT}:443"
+
+sysctls:
+  # Wire Guard
+  - WG_SYSCCTL_SETTING: "1"
+
+restart:
+  # Global
+  - restart_global1: "unless-stopped"
+
+healthcheck:
+  # Wire Guard
+  - WG_HEALTH_CHECK_INTERVAL: "30s"
+  - WG_HEALTH_CHECK_TIMEOUT: "10s"
+  - WG_HEALTH_CHECK_RETRIES: "5"
+  - WG_URL: "http://localhost"
+  - WG_HEALTHCHECK_PATH: "healthcheck"
+  # Home Assistant
+  - HA_HEALTHCHECK_INTERVAL: "30s"
+  - HA_HEALTHCHECK_TIMEOUT: "10s"
+  - HA_HEALTHCHECK_RETRIES: "5" 
+  - HA_URL: "http://localhost"
+  - HA_HEALTHCHECK_PATH: "healthcheck"
+  # Code Server
+  - CS_HEALTHCHECK_INTERVAL: "30s"
+  - CS_HEALTHCHECK_TIMEOUT: "10s"
+  - CS_HEALTHCHECK_RETRIES: "5"
+  - CS_HEALTHCHECK_URL: "http://localhost"
+  - CS_HEALTHCHECK_PATH: "healthcheck"
+
+error_handling:
+  # Wire Guard  
+  - WG_RESTART_POLICY: "on-failure"
+  - WG_RESTART_DELAY: "5s"
+  - WG_RESTART_MAX_ATTEMPTS: "4"
+  # Home Assistant
+  - HA_RESTART_POLICY: "on-failure"
+  - HA_RESTART_DELAY: "5s"
+  - HA_RESTART_MAX_ATTEMPTS: "4"
+  # Code Server
+  - CS_RESTART_POLICY: "on-failure"
+  - CS_RESTART_DELAY: "5s"
+  - CS_RESTART_MAX_ATTEMPTS: "4"
+
+resource_limits:
+  # Wire Guard
+  - WG_CPU_LIMIT: "1"
+  - WG_MEMORY_LIMIT: "512M"
+  # Home Assistant
+  - HA_CPU_LIMIT: "1"
+  - HA_MEMORY_LIMIT: "512M"
+  # Traefik
+  - TRAEFIK_CPU_LIMIT: "1"
+  - TRAEFIK_MEMORY_LIMIT: "512M"
+  # Code Server
+  - CS_CPU_LIMIT: "1"
+  - CS_MEMORY_LIMIT: "512M"
+
+logging:
+  # Wire Guard
+  - WG_LOG_DRIVER: "json-file"
+  - WG_LOG_LEVEL: "info"
+  - WG_SYSLOG_ADDRESS: "tcp://localhost:514"
+  - WG_SYSLOG_FACILITY: "local0"
+  - WG_SYSLOG_FORMAT: "rfc5424"
+  - WG_LOG_TAG: "wireguard"
+  # Home Assistant
+  - HA_LOG_DRIVER: "json-file"
+  - HA_LOG_LEVEL: "info"
+  - HA_SYSLOG_ADDRESS: "tcp://localhost:514"
+  - HA_SYSLOG_FACILITY: "local0"
+  - HA_SYSLOG_FORMAT: "rfc5424"
+  - HA_LOG_TAG: "Home_Assistant"
+  # Code Server
+  - CS_LOG_DRIVER: "json-file"
+  - CS_LOG_LEVEL: "info"
+  - CS_SYSLOG_ADDRESS: "tcp://localhost:514"
+  - CS_SYSLOG_FACILITY: "local0"
+  - CS_SYSLOG_FORMAT: "rfc5424"
+  - CS_LOG_TAG: "Code_Server"
+  # Traefik
+  - TFK_LOG_DRIVER: "json-file"
+  - TFK_LOG_LEVEL: "info"
+  - TFK_SYSLOG_ADDRESS: "tcp://localhost:514"
+  - TFK_SYSLOG_FACILITY: "local0"
+  - TFK_SYSLOG_FORMAT: "rfc5424"
+  - TFK_LOG_TAG: "Traefik"
+
+container_networks:
+  # Global
+  - GLOBAL_NETWORK: "default-public"
+  # Wire Guard
+  - WG_NETWORK: "wg-private"
+  # Home Assistant
+  - HA_NETWORK: "ha-private"
+  # Traefik
+  - TFK_NETWORK: "traefik-private"
+  - TFK_EXPOSED_NETWORK: "traefik-public"
