@@ -1,0 +1,26 @@
+---
+host:
+  - name: "myhost"
+    become: true
+    become_method: "sudo"
+    become_user: "root"
+
+    port: 0
+  
+
+    user: ""
+    password: ""
+    key: ""
+    key_passphrase: ""
+    timeout: 0
+    agent: ""
+    agent_identity: ""
+    insecure: false
+    proxy_command: ""
+    bastion_host: ""
+    bastion_port: 0
+    bastion_user: ""
+    bastion_password: ""
+    bastion_key: ""
+    bastion_key_passphrase: ""
+    bastion_timeout: 0

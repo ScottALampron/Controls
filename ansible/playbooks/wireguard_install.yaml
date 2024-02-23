@@ -1,0 +1,65 @@
+---
+  - hosts: all
+    become: yes
+
+    tasks:
+      - name: Install wireguard
+        apt:
+          name: ["wireguard"]
+          state: present
+          update_cache: true
+      
+      - name: Check that key files exist
+        stat:
+          path: /etc/wireguard/keys/
+        register: privatekey_result
+      
+      - name: Generate keys
+        shell: |
+          wg genkey | sudo tee /etc/wireguard/privatekey | wg pubkey | sudo tee /etc/wireguard/publickey
+        when: not privatekey_result.stat.exists
+      
+      - name: Set permissions on wireguard privatekey
+        file:
+          path: /etc/wireguard/keys/
+          mode: "0600"
+      
+      - name: Get wireguard private key
+        slurp:
+          src: "/etc/wireguard/keys/"
+        register: wg_privatekey
+      
+      - name: Set host privatekey value
+        set_fact:
+          wg_privatekey: "{{ wg_privatekey['content'] | b64decode | replace('\n', '') }}"
+      
+      - name: Add wireguard config file
+        ansible.builtin.template:
+          src: wg0.conf.j2
+          dest: /etc/wireguard/wg0.conf
+          owner: root
+          mode: "0600"
+      
+      - name: Stop service wireguard if already started
+        ansible.builtin.systemd:
+          name: wg-quick@wg0
+          state: restarted
+          enabled: yes
+      
+      - name: Set ipv4 port forwarding
+        sysctl:
+          name: net.ipv4.ip_forward
+          value: "1"
+          state: present
+          sysctl_set: yes
+      
+      - name: Allow all access to port 51820
+        ufw:
+          rule: allow
+          port: "51820"
+          proto: udp
+      
+      - name: Add peers
+        shell: |
+          wg set wg0 peer {{ item.public_key }} allowed-ips {{ item.allowed_ips }}
+        with_items: "{{ wg_peers }}"

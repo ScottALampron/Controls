@@ -1,0 +1,116 @@
+###############################
+### config file for ansible ###
+###############################
+
+# nearly all parameters can be overridden in ansible-playbook
+# or with command line flags. ansible will read ANSIBLE_CONFIG,
+# ansible.cfg in the current working directory, .ansible.cfg in
+# the home directory or /etc/ansible/ansible.cfg, whichever it
+# finds first
+
+# uncomment this to disable SSH key host checking
+host_key_checking = False
+
+
+# if set, always use this private key file for authentication, same as
+# if passing --private-key to ansible or ansible-playbook
+#private_key_file = /path/to/file
+
+# If set, configures the path to the Vault password file as an alternative to
+# specifying --vault-password-file on the command line.
+#vault_password_file = /path/to/vault_password_file
+
+
+# by default, ansible-playbook will display "Skipping [host]" if it determines a task
+# should not be run on a host.  Set this to "False" if you don't want to see these "Skipping"        
+# messages. NOTE: the task header will still be shown regardless of whether or not the
+# task is skipped.
+display_skipped_hosts = True
+
+
+# set plugin path directories here, separate with colons
+#action_plugins     = /usr/share/ansible/plugins/action
+#become_plugins     = /usr/share/ansible/plugins/become
+#cache_plugins      = /usr/share/ansible/plugins/cache
+#callback_plugins   = /usr/share/ansible/plugins/callback
+#connection_plugins = /usr/share/ansible/plugins/connection
+#lookup_plugins     = /usr/share/ansible/plugins/lookup
+#inventory_plugins  = /usr/share/ansible/plugins/inventory
+#vars_plugins       = /usr/share/ansible/plugins/vars
+#filter_plugins     = /usr/share/ansible/plugins/filter
+#test_plugins       = /usr/share/ansible/plugins/test
+#terminal_plugins   = /usr/share/ansible/plugins/terminal
+#strategy_plugins   = /usr/share/ansible/plugins/strategy
+
+
+# by default, ansible will use the 'linear' strategy but you may want to try
+# another one
+#strategy = free
+
+# by default callbacks are not loaded for /bin/ansible, enable this if you
+# want, for example, a notification or logging callback to also apply to
+# /bin/ansible runs
+#bin_ansible_callbacks = False
+
+
+# don't like colors either?
+# set to 1 if you don't want colors, or export ANSIBLE_NOCOLOR=1
+#nocolor = 1
+
+# if set to a persistent type (not 'memory', for example 'redis') fact values
+# from previous runs in Ansible will be stored.  This may be useful when
+# wanting to use, for example, IP information from one group of servers
+# without having to talk to them in the same playbook run to get their
+# current IP information.
+#fact_caching = memory
+
+#This option tells Ansible where to cache facts. The value is plugin dependent.
+#For the jsonfile plugin, it should be a path to a local directory.
+#For the redis plugin, the value is a host:port:database triplet: fact_caching_connection = localhost:6379:0
+
+#fact_caching_connection=/tmp
+
+
+# retry files
+# When a playbook fails a .retry file can be created that will be placed in ~/
+# You can enable this feature by setting retry_files_enabled to True
+# and you can change the location of the files by setting retry_files_save_path
+
+#retry_files_enabled = False
+#retry_files_save_path = ~/.ansible-retry
+
+
+# prevents logging of task data, off by default
+#no_log = False
+
+# prevents logging of tasks, but only on the targets, data is still logged on the master/controller  
+#no_target_syslog = False
+
+
+# controls whether Ansible will raise an error or warning if a task has no
+# choice but to create world readable temporary files to execute a module on
+# the remote machine.  This option is False by default for security.  Users may
+# turn this on to have behaviour more like Ansible prior to 2.1.x.  See
+# https://docs.ansible.com/ansible/become.html#becoming-an-unprivileged-user
+# for more secure ways to fix this than enabling this option.
+#allow_world_readable_tmpfiles = False
+
+
+# Controls showing custom stats at the end, off by default
+#show_custom_stats = True
+
+# Controls which files to ignore when using a directory as inventory with
+# possibly multiple sources (both static and dynamic)
+#inventory_ignore_extensions = ~, .orig, .bak, .ini, .cfg, .retry, .pyc, .pyo
+
+# This family of modules use an alternative execution path optimized for network appliances
+# only update this setting if you know how this works, otherwise it can break module execution       
+#network_group_modules=eos, nxos, ios, iosxr, junos, vyos
+
+# When enabled, this option allows lookups (via variables like {{lookup('foo')}} or when used as     
+# a loop with `with_foo`) to return data that is not marked "unsafe". This means the data may contain# jinja2 templating language which will be run through the templating engine.
+# ENABLING THIS COULD BE A SECURITY RISK
+#allow_unsafe_lookups = False
+
+# set default errors for all plays
+#any_errors_fatal = False

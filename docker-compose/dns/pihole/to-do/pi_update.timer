@@ -1,0 +1,13 @@
+cat << EOF | sudo tee /etc/systemd/system/pi_update.timer
+[Unit]
+Description=Timer for updating pihole
+Wants=network-online.target
+  
+[Timer]
+OnBootSec=
+OnCalendar=Mon *-*-* 00:00:00
+Persistent=true
+ 
+[Install]
+WantedBy=timers.target
+EOF

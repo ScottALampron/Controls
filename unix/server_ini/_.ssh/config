@@ -1,0 +1,75 @@
+##################################
+######### device_catagory ########  
+##################################
+
+Host    yournamehere #name  to  enter  to connect to this device
+        User root
+        HostName 192.168.1.2
+        Port 4896
+#       ForwardX11 no
+
+Host    meow
+        User root 
+        HostName 192.168.1.3
+        Port 22 #noraml ssh port
+#       ForwardX11 no
+
+Host    mix
+        User root 
+        HostName 192.168.1.4
+        Port 22
+#       ForwardX11 no
+
+###################
+#### rasp-pi's ####
+###################
+
+Host	pi1
+	User pi
+	HostName 192.168.10.1
+#	Port 
+	Port 4466
+#	ForwardX11 no
+
+#####################
+##### Tailscale #####
+#####################
+
+#Host	yeet
+#	User yeet
+#	HostName 100.64.21.112
+#	Port 5912
+#	ForwardX11 no
+
+#Host	joe
+#	User james
+#	HostName 100.110.120.84
+#	Port 22
+#	ForwardX11 no
+
+#Host	keys
+#	User sammy
+#	HostName 100.108.22.54
+#	Port 
+#	Port 22
+#	ForwardX11 no
+
+###################
+###### Notes ######
+###################
+
+
+
+####
+#Host	sammy
+#	HostName 192.168.100.1
+#	Port 22
+####
+#Host	*
+#	User faust
+#	IdentityFile C:\\Users\\faust\\Documents\\ssh\\id_rsa
+#	Protocol 2
+#	Compression yes
+#	ServerAliveInterval 60
+#	ServerAliveCountMax 20
+#	LogLevel INFO

@@ -1,0 +1,5 @@
+- hosts: all
+  tasks:
+  - name: shutdown hosts
+    command: /sbin/shutdown -h now
+##  when: ansible_facts['os_family'] == "Debian"

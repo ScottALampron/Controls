@@ -1,0 +1,9 @@
+cat << EOF | sudo tee /etc/systemd/system/rbt_pihle_if_update.service
+[Unit]
+Description=Update pihole
+After=network-online.target
+  
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/rbt_pihole_if_update.sh
+EOF
