@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  code-server:
+    image: linuxserver/code-server
+    container_name: ${code_server.container_name}
+    environment:
+      - TZ=${tz}
+    ports:
+      - "${code_server.port}:8443"
+    volumes:
+      - ../vars/global-vars.yaml:/vars/
+      - /vars/general-vars.yaml:/general-vars.yaml
+      - /vars/code-server-vars.yaml:/code-server-vars.yaml
+      - ${config}:/config
+      - ${config}:/config/workspace
+    restart: unless-stopped
+    command: --auth password --password ${code_server.password}

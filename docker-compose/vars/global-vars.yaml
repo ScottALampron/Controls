@@ -1,0 +1,4 @@
+general-vars:
+  config: ./config
+  data: ./data
+  tz: LosAngeles/Americas
