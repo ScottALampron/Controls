@@ -1,4 +1,4 @@
 general-vars:
   config: ./config
   data: ./data
-  tz: LosAngeles/Americas
+  tz: America/Los_Angeles

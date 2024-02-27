@@ -43,8 +43,8 @@ This setup allows you to remotely wake up a Windows computer using WoL packets s
 1. At the scheduled time, `wol.py` will run on the Raspberry Pi, sending a WoL packet to the Windows computer.
 2. Upon waking up, the Windows computer will execute `backup_and_update.ps1` at the set time.
 3. When the aforementioned .ps1 script executes, it will start the `backup.py` script. After that has finished, it will execute the `update-check.ps1` script.
- - `backup.py` will perform a backup of modified files and directories since a specified time, from a specified directory to another directory using variables.
- - `backup_and_update.ps1` will check if `chocolatey` is installed, prompt to install if not present, and proceed to update programs on the Windows device. After which it will prompt to shutdown, if unanswered within 5 minutes (variable), it will auto shutdown.
+  3a. `backup.py` will perform a backup of modified files and directories since a specified time, from a specified directory to another directory using variables.
+  3b. `backup_and_update.ps1` will check if `chocolatey` is installed, prompt to install if not present, and proceed to update programs on the Windows device. After which it will prompt to shutdown, if unanswered within 5 minutes (variable), it will auto shutdown.
 
 ## Customization
 
