@@ -1,7 +1,17 @@
-# backup.py
+import sys
 import os
+import datetime
 import shutil
-from ..vars.vars import *
+
+# Get the current directory of the script
+#script_dir = os.path.dirname(os.path.realpath(__file__))
+# Move up one directory to access the vars folder
+#parent_dir = os.path.abspath(os.path.join(script_dir, os.pardir))
+# Add the vars folder to the Python path
+#sys.path.append(os.path.join(parent_dir, 'vars'))
+# Import variables from vars.py
+from vars import *
+
 
 def backup_since_time(cutoff_time):
     source_dir = BACKUP_SOURCE_DIR
@@ -20,30 +30,43 @@ def backup_since_time(cutoff_time):
         for file in files:
             source_file = os.path.join(root, file)
             destination_file = os.path.join(destination_root, file)
-            modified_time = datetime.fromtimestamp(os.path.getmtime(source_file))
+            modified_time = datetime.datetime.fromtimestamp(os.path.getmtime(source_file))
+            
+            # Check if the source file has been modified since the cutoff time
             if modified_time >= cutoff_time:
-                # Determine the version number of the file
-                versions = {}
-                if VERSIONING_ENABLED:
-                    for f in os.listdir(destination_root):
-                        if f.startswith(file):
-                            version_num = int(f.split(VERSION_PREFIX)[-1].split(VERSION_SUFFIX)[0])
-                            versions[f] = version_num
-                    version = versions.get(file, 0) + 1
-
-                    # Rename the existing files if necessary
-                    if version > VERSION_MAX_COUNT:
-                        oldest_version = min(versions, key=versions.get)
-                        os.remove(os.path.join(destination_root, oldest_version))
-                        version = VERSION_MAX_COUNT
-                    if INCLUDE_ORIGINAL:
-                        if version == 1:
-                            destination_file = os.path.join(destination_root, f"{file}_original.{file.split('.')[-1]}")
+                # Check if the destination file exists
+                if os.path.exists(destination_file):
+                    # Check if the source file is newer than the destination file
+                    if modified_time > datetime.datetime.fromtimestamp(os.path.getmtime(destination_file)):
+                        # Implement versioning
+                        if VERSIONING_ENABLED:
+                            # Get the list of existing versions
+                            versions = [f for f in os.listdir(destination_root) if f.startswith(file) and VERSION_SUFFIX in f]
+                            # Sort the versions based on modification time
+                            versions.sort(key=lambda x: os.path.getmtime(os.path.join(destination_root, x)), reverse=True)
+                            # Keep only the last VERSION_MAX_COUNT versions
+                            versions_to_keep = versions[:VERSION_MAX_COUNT-1]  # Leave one less version for the new one
+                            # Remove old versions
+                            for old_version in set(versions) - set(versions_to_keep):
+                                os.remove(os.path.join(destination_root, old_version))
+                            # Determine the version number for the new file
+                            latest_version = max([int(f.split(VERSION_SUFFIX)[-1].split('.')[0]) for f in versions_to_keep], default=0)
+                            version = latest_version + 1
+                            # Construct destination file name with version number
+                            if VERSION_AS_PREFIX:
+                                destination_file = os.path.join(destination_root, f"{VERSION_PREFIX}{version}_{file}")
+                            else:
+                                destination_file = os.path.join(destination_root, f"{file}_{VERSION_SUFFIX}{version}")
+                            shutil.copy2(source_file, destination_file)  # copy2 preserves metadata
                         else:
-                            destination_file = os.path.join(destination_root, f"{file}{VERSION_SUFFIX}{version}.{file.split('.')[-1]}")
+                            shutil.copy2(source_file, destination_file)  # copy2 preserves metadata
+                else:
+                    # Add "_original" suffix for the first backup
+                    if INCLUDE_ORIGINAL and not os.path.exists(os.path.join(destination_root, f"{file}_original.{file.split('.')[-1]}")):
+                        original_file = os.path.join(destination_root, f"{file}_original.{file.split('.')[-1]}")
+                        shutil.copy2(source_file, original_file)  # copy2 preserves metadata
                     else:
-                        destination_file = os.path.join(destination_root, f"{file}{VERSION_SUFFIX}{version}.{file.split('.')[-1]}")
-                shutil.copy2(source_file, destination_file)  # copy2 preserves metadata
+                        shutil.copy2(source_file, destination_file)  # copy2 preserves metadata
 
 if __name__ == "__main__":
     # Get the cutoff time from vars.py
