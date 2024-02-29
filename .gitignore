@@ -9,6 +9,7 @@ __pycache__/
 
 # Ignore backup files
 *.bak
+.backups
 
 # Ignore compiled Python files
 *.pyc
