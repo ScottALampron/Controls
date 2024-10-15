@@ -1,18 +1,43 @@
-version: '3'
-
+---
 services:
   code-server:
-    image: linuxserver/code-server
-    container_name: ${code_server.container_name}
-    environment:
-      - TZ=${tz}
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
     ports:
-      - "${code_server.port}:8443"
+      - "8443:8443"
+    networks:
+      - 'proxy'
+    environment:
+      - FILE__git.env=.env
+      - HASHED_PASSWORD=$HPWD      
+      - SUDO_PASSWORD=$SPWD
+      - PUID=$PUID
+      - PGID=$PGID
+      - TZ=$TZ
+#      - SUDO_PASSWORD_HASH=$SHPWD
+#      - PASSWORD=password #optional
+#      - HASHED_PASSWORD= #optional
+#      - SUDO_PASSWORD=password #optional
+#      - SUDO_PASSWORD_HASH= #optional
+#  Not activated
+      - PROXY_DOMAIN=code.local
+      - DEFAULT_WORKSPACE=/config/workspace #optional
     volumes:
-      - ../vars/global-vars.yaml:/vars/
-      - /vars/general-vars.yaml:/general-vars.yaml
-      - /vars/code-server-vars.yaml:/code-server-vars.yaml
-      - ${config}:/config
-      - ${config}:/config/workspace
+      - ./config:/config
+      - ./data:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.code-server.rule=Host(`code.local.com`)"
+      - "traefik.http.routers.code-server.middlewares=https-redirectscheme"
+      - "traefik.http.routers.code-server-secure.entrypoints=https"
+      - "traefik.http.routers.code-server.tls=true"
+      - "traefik.http.services.code-server.loadbalancer.server.port=8443"
+      - "traefik.http.routers.code-server.tls.certresolver=cloudflare"
+      - "traefik.http.routers.code-server.tls.domains[0].main=code.local.com"
+      - "traefik.http.routers.code-server.tls.domains[0].sans=code.local.com"
+      - "traefik.docker.network=proxy"
     restart: unless-stopped
-    command: --auth password --password ${code_server.password}
+networks:
+  proxy:
+    external: true
+
