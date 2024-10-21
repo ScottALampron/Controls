@@ -93,40 +93,169 @@ After running the script, your project will be organized as follows:
 
 ```bash
 
-consolidation/
-├── backups/
-├── compose/
-│   ├── <service1>/
-│   │   └── docker-compose.yml
-│   ├── <service2>/
-│   │   └── docker-compose.yml
-├── config/
-│   ├── <service1>/
-│   │   └── <service1>.config
-│   ├── <service2>/
-│   │   └── <service2>.config
-├── db/
-│   ├── <db_service1>/
-│   │   └── <db_service1>.db
-│   ├── <db_service2>/
-│   │   └── <db_service2>.db
-├── logs/
-│   ├── <service1>/
-│   │   └── <service1>.log
-│   ├── <service2>/
-│   │   └── <service2>.log
-├── media/
-│   ├── videos/
-│   ├── musics/
-│   ├── photos/
-│   ├── tv/
-│   └── rr_feed/
-├── scripts/
-│   ├── setup.sh
-│   ├── backup.sh
-│   ├── sync.sh
-│   └── cronjobs.sh
-└── keepalived/
+├────────────────────
+|
+├── backups
+├── compose
+│   ├── authentik
+│   │   └── docker-compose.yml
+│   ├── code-server
+│   │   └── docker-compose.yml
+│   ├── ddns
+│   │   └── docker-compose.yml
+│   ├── duplicati
+│   │   └── docker-compose.yml
+│   ├── grafana
+│   │   └── docker-compose.yml
+│   ├── homepage
+│   │   └── docker-compose.yml
+│   ├── jekyll
+│   │   └── docker-compose.yml
+│   ├── jellyfin
+│   │   └── docker-compose.yml
+│   ├── keepalived
+│   │   └── docker-compose.yml
+│   ├── ldap
+│   │   └── docker-compose.yml
+│   ├── lidarr
+│   │   └── docker-compose.yml
+│   ├── netdata
+│   │   └── docker-compose.yml
+│   ├── plex
+│   │   └── docker-compose.yml
+│   ├── prometheus
+│   │   └── docker-compose.yml
+│   ├── qbittorrent
+│   │   └── docker-compose.yml
+│   ├── radarr
+│   │   └── docker-compose.yml
+│   ├── rsync
+│   │   └── docker-compose.yml
+│   ├── sonarr
+│   │   └── docker-compose.yml
+│   ├── traefik
+│   │   └── docker-compose.yml
+│   └── transmission
+│       └── docker-compose.yml
+├── config
+│   ├── authentik
+│   │   └── authentik.config
+│   ├── code-server
+│   │   └── code-server.config
+│   ├── ddns
+│   │   └── ddns.config
+│   ├── duplicati
+│   │   └── duplicati.config
+│   ├── grafana
+│   │   └── grafana.config
+│   ├── homepage
+│   │   └── homepage.config
+│   ├── jekyll
+│   │   └── jekyll.config
+│   ├── jellyfin
+│   │   └── jellyfin.config
+│   ├── keepalived
+│   │   └── keepalived.config
+│   ├── ldap
+│   │   └── ldap.config
+│   ├── lidarr
+│   │   └── lidarr.config
+│   ├── netdata
+│   │   └── netdata.config
+│   ├── plex
+│   │   └── plex.config
+│   ├── prometheus
+│   │   └── prometheus.config
+│   ├── qbittorrent
+│   │   └── qbittorrent.config
+│   ├── radarr
+│   │   └── radarr.config
+│   ├── rsync
+│   │   └── rsync.config
+│   ├── sonarr
+│   │   └── sonarr.config
+│   ├── traefik
+│   │   └── traefik.config
+│   └── transmission
+│       └── transmission.config
+├── db
+├── env
+│   ├── authentik.env
+│   ├── code-server.env
+│   ├── ddns.env
+│   ├── duplicati.env
+│   ├── grafana.env
+│   ├── homepage.env
+│   ├── jekyll.env
+│   ├── jellyfin.env
+│   ├── keepalived.env
+│   ├── ldap.env
+│   ├── lidarr.env
+│   ├── netdata.env
+│   ├── plex.env
+│   ├── prometheus.env
+│   ├── qbittorrent.env
+│   ├── radarr.env
+│   ├── rsync.env
+│   ├── sonarr.env
+│   ├── traefik.env
+│   └── transmission.env
+├── keepalived
+├── logs
+│   ├── authentik
+│   │   └── authentik.log
+│   ├── code-server
+│   │   └── code-server.log
+│   ├── ddns
+│   │   └── ddns.log
+│   ├── duplicati
+│   │   └── duplicati.log
+│   ├── grafana
+│   │   └── grafana.log
+│   ├── homepage
+│   │   └── homepage.log
+│   ├── jekyll
+│   │   └── jekyll.log
+│   ├── jellyfin
+│   │   └── jellyfin.log
+│   ├── keepalived
+│   │   └── keepalived.log
+│   ├── ldap
+│   │   └── ldap.log
+│   ├── lidarr
+│   │   └── lidarr.log
+│   ├── netdata
+│   │   └── netdata.log
+│   ├── plex
+│   │   └── plex.log
+│   ├── prometheus
+│   │   └── prometheus.log
+│   ├── qbittorrent
+│   │   └── qbittorrent.log
+│   ├── radarr
+│   │   └── radarr.log
+│   ├── rsync
+│   │   └── rsync.log
+│   ├── sonarr
+│   │   └── sonarr.log
+│   ├── traefik
+│   │   └── traefik.log
+│   └── transmission
+│       └── transmission.log
+├── media
+│   ├── musics
+│   ├── photos
+│   ├── rr_feed
+│   ├── tv
+│   └── videos
+└── scripts
+    ├── backup.sh
+    ├── cronjobs.sh
+    ├── setup.sh
+    └── sync.sh
+
+74 directories, 84 files
+
 ```
 
 ---
