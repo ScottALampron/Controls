@@ -4,6 +4,8 @@
 
 # 🌟 **Directory Structure Creator**🌟
 
+---
+
 ## 🚀 Overview
 
 The **Directory Structure Creator** is a powerful Bash script designed to automate the creation of a customizable directory structure for your projects. This script simplifies the process of setting up various services, databases, and logs, allowing you to focus on what really matters—your work!
@@ -20,6 +22,7 @@ The **Directory Structure Creator** is a powerful Bash script designed to automa
 ---
 
 ## 🛠️ Getting Started
+
 
 ### 📋 Prerequisites
 
