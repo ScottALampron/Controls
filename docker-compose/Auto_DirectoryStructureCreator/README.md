@@ -1,6 +1,4 @@
 ---
-title: "Directory Structure Creator"
----
 
 # 🌟 **Directory Structure Creator**🌟
 
