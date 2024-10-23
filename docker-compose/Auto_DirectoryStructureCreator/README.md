@@ -1,5 +1,5 @@
 ---
-
+title: "Directory Structure Creator"
 ---
 
 # 🌟 **Directory Structure Creator**🌟
@@ -98,86 +98,48 @@ After running the script, your project will be organized as follows:
 ├── backups
 ├── compose
 │   ├── authentik
-│   │   └── docker-compose.yml
+│   │   └── docker-compose.yml # Script generates a docker-compose.yaml file for each service
 │   ├── code-server
-│   │   └── docker-compose.yml
 │   ├── ddns
-│   │   └── docker-compose.yml
 │   ├── duplicati
-│   │   └── docker-compose.yml
 │   ├── grafana
-│   │   └── docker-compose.yml
 │   ├── homepage
-│   │   └── docker-compose.yml
 │   ├── jekyll
-│   │   └── docker-compose.yml
 │   ├── jellyfin
-│   │   └── docker-compose.yml
 │   ├── keepalived
-│   │   └── docker-compose.yml
 │   ├── ldap
-│   │   └── docker-compose.yml
 │   ├── lidarr
-│   │   └── docker-compose.yml
 │   ├── netdata
-│   │   └── docker-compose.yml
 │   ├── plex
-│   │   └── docker-compose.yml
 │   ├── prometheus
-│   │   └── docker-compose.yml
 │   ├── qbittorrent
-│   │   └── docker-compose.yml
 │   ├── radarr
-│   │   └── docker-compose.yml
 │   ├── rsync
-│   │   └── docker-compose.yml
 │   ├── sonarr
-│   │   └── docker-compose.yml
 │   ├── traefik
-│   │   └── docker-compose.yml
 │   └── transmission
-│       └── docker-compose.yml
 ├── config
 │   ├── authentik
-│   │   └── authentik.config
+│   │   └── authentik.config # Script generates a config file for each service
 │   ├── code-server
-│   │   └── code-server.config
 │   ├── ddns
-│   │   └── ddns.config
 │   ├── duplicati
-│   │   └── duplicati.config
 │   ├── grafana
-│   │   └── grafana.config
 │   ├── homepage
-│   │   └── homepage.config
 │   ├── jekyll
-│   │   └── jekyll.config
 │   ├── jellyfin
-│   │   └── jellyfin.config
 │   ├── keepalived
-│   │   └── keepalived.config
 │   ├── ldap
-│   │   └── ldap.config
 │   ├── lidarr
-│   │   └── lidarr.config
 │   ├── netdata
-│   │   └── netdata.config
 │   ├── plex
-│   │   └── plex.config
 │   ├── prometheus
-│   │   └── prometheus.config
 │   ├── qbittorrent
-│   │   └── qbittorrent.config
 │   ├── radarr
-│   │   └── radarr.config
 │   ├── rsync
-│   │   └── rsync.config
 │   ├── sonarr
-│   │   └── sonarr.config
 │   ├── traefik
-│   │   └── traefik.config
 │   └── transmission
-│       └── transmission.config
 ├── db
 ├── env
 │   ├── authentik.env
@@ -203,45 +165,26 @@ After running the script, your project will be organized as follows:
 ├── keepalived
 ├── logs
 │   ├── authentik
-│   │   └── authentik.log
+│   │   └── "Service.log" # Script generates a log file for each service
 │   ├── code-server
-│   │   └── code-server.log
 │   ├── ddns
-│   │   └── ddns.log
 │   ├── duplicati
-│   │   └── duplicati.log
 │   ├── grafana
-│   │   └── grafana.log
 │   ├── homepage
-│   │   └── homepage.log
 │   ├── jekyll
-│   │   └── jekyll.log
 │   ├── jellyfin
-│   │   └── jellyfin.log
 │   ├── keepalived
-│   │   └── keepalived.log
 │   ├── ldap
-│   │   └── ldap.log
 │   ├── lidarr
-│   │   └── lidarr.log
 │   ├── netdata
-│   │   └── netdata.log
 │   ├── plex
-│   │   └── plex.log
 │   ├── prometheus
-│   │   └── prometheus.log
 │   ├── qbittorrent
-│   │   └── qbittorrent.log
 │   ├── radarr
-│   │   └── radarr.log
 │   ├── rsync
-│   │   └── rsync.log
 │   ├── sonarr
-│   │   └── sonarr.log
 │   ├── traefik
-│   │   └── traefik.log
 │   └── transmission
-│       └── transmission.log
 ├── media
 │   ├── musics
 │   ├── photos
@@ -283,4 +226,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ## 📧 Contact
 
-For any questions or feedback, please reach out via [your email or GitHub profile link].
+For any questions or feedback, please reach out via GitHub.
